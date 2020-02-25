@@ -14,6 +14,7 @@
 
   <ItemGroup>
     <PackageReference Include="Ardalis.ListStartupServices" Version="1.1.3" />
+    <PackageReference Include="EntityFrameworkProfiler" Version="5.0.5044" />
 
     <PackageReference Include="MediatR" Version="7.0.0" />
     <PackageReference Include="MediatR.Extensions.Microsoft.DependencyInjection" Version="7.0.0" />
