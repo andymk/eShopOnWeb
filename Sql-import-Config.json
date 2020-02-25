@@ -328,7 +328,7 @@
           "SourceTableName": "Orders",
           "SourceTableSchema": "dbo",
           "Name": "Orders",
-          "Patch": "this.ShipTo = {\r\n\tCity: this.City,\r\n\tCountry: this.Country,\r\n\tState: this.State,\r\n\tStreet: this.Street,\r\n\tZipCode: this.ZipCode\r\n}\r\n\r\ndelete this.City;\r\ndelete this.Country;\r\ndelete this.State;\r\ndelete this.Street;\r\ndelete this.ZipCode;\r\n\r\nthis.OrderItems.forEach(item => {\r\n    item.CatalogItem = \"Catalog/\" + item.CatalogItemId;\r\n})",
+          "Patch": "this.ShipToAddress = {\r\n\tCity: this.City,\r\n\tCountry: this.Country,\r\n\tState: this.State,\r\n\tStreet: this.Street,\r\n\tZipCode: this.ZipCode\r\n}\r\n\r\ndelete this.City;\r\ndelete this.Country;\r\ndelete this.State;\r\ndelete this.Street;\r\ndelete this.ZipCode;\r\n\r\nthis.OrderItems.forEach(item => {\r\n    item.CatalogItem = \"Catalog/\" + item.CatalogItemId;\r\n})",
           "NestedCollections": [
             {
               "Name": "OrderItems",
