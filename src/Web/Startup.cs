@@ -24,7 +24,9 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net.Mime;
+using System.Reflection;
 using HibernatingRhinos.Profiler.Appender.EntityFramework;
+using Microsoft.eShopWeb.ApplicationCore.Entities.BasketAggregate;
 using Raven.Client.Documents;
 
 namespace Microsoft.eShopWeb.Web
@@ -81,8 +83,22 @@ namespace Microsoft.eShopWeb.Web
             {
                 Database = ravenDbSettings.Database,
                 Urls = ravenDbSettings.Urls
-            }.Initialize();
-            services.AddSingleton(documentStore);
+            };
+            documentStore.OnAfterConversionToEntity += (sender, args) =>
+            {
+                if (args.Entity is Basket b)
+                {
+                    b.Id = int.Parse(args.Id.Split('/').Last());
+                }
+            };
+            documentStore.Conventions.FindIdentityProperty =
+                member => member.Name == "Id" && 
+                          member is PropertyInfo prop && 
+                          prop.PropertyType == typeof(string);
+
+            documentStore.Initialize();
+
+            services.AddSingleton<IDocumentStore>(documentStore);
 
             ConfigureServices(services);
         }
@@ -104,8 +120,12 @@ namespace Microsoft.eShopWeb.Web
 
             services.AddScoped(typeof(IAsyncRepository<>), typeof(EfRepository<>));
             services.AddScoped<ICatalogViewModelService, CachedCatalogViewModelService>();
-            services.AddScoped<IBasketService, BasketService>();
-            services.AddScoped<IBasketViewModelService, BasketViewModelService>();
+            
+            //services.AddScoped<IBasketService, BasketService>();
+            //services.AddScoped<IBasketViewModelService, BasketViewModelService>();
+            services.AddScoped<IBasketService, RavenDbBasketService>();
+            services.AddScoped<IBasketViewModelService, RavenDbBasketViewModelService>();
+
             services.AddScoped<IOrderService, OrderService>();
             services.AddScoped<IOrderRepository, OrderRepository>();
             services.AddScoped<CatalogViewModelService>();
