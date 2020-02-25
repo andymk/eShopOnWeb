@@ -9,7 +9,7 @@ namespace Microsoft.eShopWeb.ApplicationCore.Entities.BasketAggregate
         public string BuyerId { get; private set; }
         private List<BasketItem> _items = new List<BasketItem>();
 
-        public IReadOnlyCollection<BasketItem> Items
+        public IReadOnlyList<BasketItem> Items
         {
             get => _items.AsReadOnly();
             protected set => _items = new List<BasketItem>(value);

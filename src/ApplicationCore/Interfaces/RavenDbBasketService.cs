@@ -44,12 +44,10 @@ namespace Microsoft.eShopWeb.ApplicationCore.Interfaces
         public async Task SetQuantities(int basketId, Dictionary<string, int> quantities)
         {
             var basket = await _session.LoadAsync<Basket>("baskets/" + basketId);
-            foreach (var item in basket.Items)
+            foreach (var quantity in quantities)
             {
-                if (quantities.TryGetValue(item.Id.ToString(), out var quantity))
-                {
-                    item.SetNewQuantity(quantity);
-                }
+                var index = int.Parse(quantity.Key);
+                basket.Items[index].SetNewQuantity(quantity.Value);
             }
             basket.RemoveEmptyItems();
             await _session.SaveChangesAsync();

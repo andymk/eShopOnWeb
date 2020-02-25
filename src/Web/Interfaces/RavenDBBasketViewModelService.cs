@@ -25,7 +25,7 @@ namespace Microsoft.eShopWeb.Web.Interfaces
         {
             var basket = await _session.Query<Basket>()
                 .Include(x=>x.Items.Select(i=>i.CatalogItem))
-                .FirstAsync(x => x.BuyerId == userName);
+                .FirstOrDefaultAsync(x => x.BuyerId == userName);
 
             if (basket == null)
             {
@@ -43,24 +43,24 @@ namespace Microsoft.eShopWeb.Web.Interfaces
             {
                 BuyerId = basket.BuyerId,
                 Id = basket.Id,
-                Items = basket.Items.Select(i =>
+                Items = basket.Items.Select((item, index) =>
                 {
                     var itemModel = new BasketItemViewModel
                     {
-                        Id = i.Id,
-                        CatalogItemId = i.CatalogItemId,
-                        Quantity = i.Quantity,
-                        UnitPrice = i.UnitPrice
+                        Id = index,
+                        CatalogItemId = item.CatalogItemId,
+                        Quantity = item.Quantity,
+                        UnitPrice = item.UnitPrice
                     };
 
-                    var catalogItemTask = _session.LoadAsync<CatalogItem>("Catalog/" + i.CatalogItemId);
+                    var catalogItemTask = _session.LoadAsync<CatalogItem>("Catalog/" + item.CatalogItemId);
                     if (catalogItemTask.Status != TaskStatus.RanToCompletion)
                         throw new InvalidOperationException("Should never happen: " + catalogItemTask.Status, catalogItemTask.Exception);
 
                     var catalogItem = catalogItemTask.Result;
                     itemModel.OldUnitPrice = catalogItem.Price;
                     itemModel.ProductName = catalogItem.Name;
-                    _uriComposer.ComposePicUri(catalogItem.PictureUri);
+                    itemModel.PictureUrl = _uriComposer.ComposePicUri(catalogItem.PictureUri);
 
                     return itemModel;
                 }).ToList()
