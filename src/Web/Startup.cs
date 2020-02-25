@@ -25,6 +25,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Net.Mime;
 using HibernatingRhinos.Profiler.Appender.EntityFramework;
+using Raven.Client.Documents;
 
 namespace Microsoft.eShopWeb.Web
 {
@@ -72,6 +73,16 @@ namespace Microsoft.eShopWeb.Web
             // Add Identity DbContext
             services.AddDbContext<AppIdentityDbContext>(options =>
                 options.UseSqlServer(Configuration.GetConnectionString("IdentityConnection")));
+            
+            // Add RavenDB Store
+
+            var ravenDbSettings = Configuration.GetSection("RavenDB").Get<RavenDBSettings>();
+            var documentStore = new DocumentStore
+            {
+                Database = ravenDbSettings.Database,
+                Urls = ravenDbSettings.Urls
+            }.Initialize();
+            services.AddSingleton(documentStore);
 
             ConfigureServices(services);
         }
