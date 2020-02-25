@@ -1,0 +1,21 @@
+for (var i = 0; i< this.OrderItems.length; i++) {
+    var item = this.OrderItems[i];
+    loadToOrderItems({
+        UnitPrice: item.UnitPrice,
+        Units: item.Units,
+        ItemOrdered_CatalogItemId: item.ItemOrdered.CatalogItemId,
+        ItemOrdered_PictureUri: item.ItemOrdered.PictureUri,
+        ItemOrdered_ProductName: item.ItemOrdered.ProductName,
+        OrderId: sqlOrderId
+    })
+}
+
+loadToOrders({
+    BuyerId: this.BuyerId,
+    OrderDate: this.OrderDate,
+    ShipToAddress_City: this.ShipToAddress.City,
+    ShipToAddress_Country: this.ShipToAddress.Country,
+    ShipToAddress_State: this.ShipToAddress.State,
+    ShipToAddress_Street: this.ShipToAddress.Street,
+    ShipToAddress_ZipCode: this.ShipToAddress.ZipCode
+});

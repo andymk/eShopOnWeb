@@ -1,0 +1,409 @@
+{
+  "Schema": {
+    "CatalogName": "Microsoft.eShopOnWeb.CatalogDb",
+    "Tables": [
+      {
+        "Schema": "dbo",
+        "TableName": "__EFMigrationsHistory",
+        "DefaultQuery": "select * from [dbo].[__EFMigrationsHistory]",
+        "Columns": [
+          {
+            "Type": "String",
+            "Name": "MigrationId"
+          },
+          {
+            "Type": "String",
+            "Name": "ProductVersion"
+          }
+        ],
+        "PrimaryKeyColumns": [
+          "MigrationId"
+        ],
+        "References": []
+      },
+      {
+        "Schema": "dbo",
+        "TableName": "Baskets",
+        "DefaultQuery": "select * from [dbo].[Baskets]",
+        "Columns": [
+          {
+            "Type": "Number",
+            "Name": "Id"
+          },
+          {
+            "Type": "String",
+            "Name": "BuyerId"
+          }
+        ],
+        "PrimaryKeyColumns": [
+          "Id"
+        ],
+        "References": [
+          {
+            "Table": "BasketItems",
+            "Schema": "dbo",
+            "Columns": [
+              "BasketId"
+            ]
+          }
+        ]
+      },
+      {
+        "Schema": "dbo",
+        "TableName": "CatalogBrands",
+        "DefaultQuery": "select * from [dbo].[CatalogBrands]",
+        "Columns": [
+          {
+            "Type": "Number",
+            "Name": "Id"
+          },
+          {
+            "Type": "String",
+            "Name": "Brand"
+          }
+        ],
+        "PrimaryKeyColumns": [
+          "Id"
+        ],
+        "References": [
+          {
+            "Table": "Catalog",
+            "Schema": "dbo",
+            "Columns": [
+              "CatalogBrandId"
+            ]
+          }
+        ]
+      },
+      {
+        "Schema": "dbo",
+        "TableName": "CatalogTypes",
+        "DefaultQuery": "select * from [dbo].[CatalogTypes]",
+        "Columns": [
+          {
+            "Type": "Number",
+            "Name": "Id"
+          },
+          {
+            "Type": "String",
+            "Name": "Type"
+          }
+        ],
+        "PrimaryKeyColumns": [
+          "Id"
+        ],
+        "References": [
+          {
+            "Table": "Catalog",
+            "Schema": "dbo",
+            "Columns": [
+              "CatalogTypeId"
+            ]
+          }
+        ]
+      },
+      {
+        "Schema": "dbo",
+        "TableName": "Orders",
+        "DefaultQuery": "select * from [dbo].[Orders]",
+        "Columns": [
+          {
+            "Type": "Number",
+            "Name": "Id"
+          },
+          {
+            "Type": "String",
+            "Name": "BuyerId"
+          },
+          {
+            "Type": "String",
+            "Name": "OrderDate"
+          },
+          {
+            "Type": "String",
+            "Name": "ShipToAddress_City"
+          },
+          {
+            "Type": "String",
+            "Name": "ShipToAddress_Country"
+          },
+          {
+            "Type": "String",
+            "Name": "ShipToAddress_State"
+          },
+          {
+            "Type": "String",
+            "Name": "ShipToAddress_Street"
+          },
+          {
+            "Type": "String",
+            "Name": "ShipToAddress_ZipCode"
+          }
+        ],
+        "PrimaryKeyColumns": [
+          "Id"
+        ],
+        "References": [
+          {
+            "Table": "OrderItems",
+            "Schema": "dbo",
+            "Columns": [
+              "OrderId"
+            ]
+          }
+        ]
+      },
+      {
+        "Schema": "dbo",
+        "TableName": "BasketItems",
+        "DefaultQuery": "select * from [dbo].[BasketItems]",
+        "Columns": [
+          {
+            "Type": "Number",
+            "Name": "Id"
+          },
+          {
+            "Type": "Number",
+            "Name": "BasketId"
+          },
+          {
+            "Type": "Number",
+            "Name": "CatalogItemId"
+          },
+          {
+            "Type": "Number",
+            "Name": "Quantity"
+          },
+          {
+            "Type": "Number",
+            "Name": "UnitPrice"
+          }
+        ],
+        "PrimaryKeyColumns": [
+          "Id"
+        ],
+        "References": []
+      },
+      {
+        "Schema": "dbo",
+        "TableName": "Catalog",
+        "DefaultQuery": "select * from [dbo].[Catalog]",
+        "Columns": [
+          {
+            "Type": "Number",
+            "Name": "Id"
+          },
+          {
+            "Type": "Number",
+            "Name": "CatalogBrandId"
+          },
+          {
+            "Type": "Number",
+            "Name": "CatalogTypeId"
+          },
+          {
+            "Type": "String",
+            "Name": "Description"
+          },
+          {
+            "Type": "String",
+            "Name": "Name"
+          },
+          {
+            "Type": "String",
+            "Name": "PictureUri"
+          },
+          {
+            "Type": "Number",
+            "Name": "Price"
+          }
+        ],
+        "PrimaryKeyColumns": [
+          "Id"
+        ],
+        "References": []
+      },
+      {
+        "Schema": "dbo",
+        "TableName": "OrderItems",
+        "DefaultQuery": "select * from [dbo].[OrderItems]",
+        "Columns": [
+          {
+            "Type": "Number",
+            "Name": "Id"
+          },
+          {
+            "Type": "Number",
+            "Name": "OrderId"
+          },
+          {
+            "Type": "Number",
+            "Name": "UnitPrice"
+          },
+          {
+            "Type": "Number",
+            "Name": "Units"
+          },
+          {
+            "Type": "Number",
+            "Name": "ItemOrdered_CatalogItemId"
+          },
+          {
+            "Type": "String",
+            "Name": "ItemOrdered_PictureUri"
+          },
+          {
+            "Type": "String",
+            "Name": "ItemOrdered_ProductName"
+          }
+        ],
+        "PrimaryKeyColumns": [
+          "Id"
+        ],
+        "References": []
+      }
+    ]
+  },
+  "Configuration": {
+    "Source": {
+      "ConnectionString": "Server=.\\sqlexpress;Integrated Security=true;Initial Catalog=Microsoft.eShopOnWeb.CatalogDb;",
+      "Provider": "MsSQL"
+    },
+    "Settings": {
+      "BatchSize": 1000,
+      "Collections": [
+        {
+          "SourceTableName": "Baskets",
+          "SourceTableSchema": "dbo",
+          "Name": "Baskets",
+          "Patch": "this.Items.forEach(item => {\r\n    item.CatalogItem = \"Catalog/\" + item.CatalogItemId;\r\n})",
+          "NestedCollections": [
+            {
+              "Name": "Items",
+              "SourceTableSchema": "dbo",
+              "SourceTableName": "BasketItems",
+              "Type": "OneToMany",
+              "JoinColumns": [
+                "BasketId"
+              ],
+              "ColumnsMapping": {
+                "CatalogItemId": "CatalogItemId",
+                "Quantity": "Quantity",
+                "UnitPrice": "UnitPrice"
+              },
+              "AttachmentNameMapping": {},
+              "LinkedCollections": [],
+              "NestedCollections": []
+            }
+          ],
+          "LinkedCollections": [],
+          "ColumnsMapping": {
+            "BuyerId": "BuyerId"
+          },
+          "AttachmentNameMapping": {}
+        },
+        {
+          "SourceTableName": "CatalogBrands",
+          "SourceTableSchema": "dbo",
+          "Name": "CatalogBrands",
+          "NestedCollections": [],
+          "LinkedCollections": [],
+          "ColumnsMapping": {
+            "Brand": "Brand"
+          },
+          "AttachmentNameMapping": {}
+        },
+        {
+          "SourceTableName": "CatalogTypes",
+          "SourceTableSchema": "dbo",
+          "Name": "CatalogTypes",
+          "NestedCollections": [],
+          "LinkedCollections": [],
+          "ColumnsMapping": {
+            "Type": "Type"
+          },
+          "AttachmentNameMapping": {}
+        },
+        {
+          "SourceTableName": "Orders",
+          "SourceTableSchema": "dbo",
+          "Name": "Orders",
+          "Patch": "this.ShipTo = {\r\n\tCity: this.City,\r\n\tCountry: this.Country,\r\n\tState: this.State,\r\n\tStreet: this.Street,\r\n\tZipCode: this.ZipCode\r\n}\r\n\r\ndelete this.City;\r\ndelete this.Country;\r\ndelete this.State;\r\ndelete this.Street;\r\ndelete this.ZipCode;\r\n\r\nthis.OrderItems.forEach(item => {\r\n    item.CatalogItem = \"Catalog/\" + item.CatalogItemId;\r\n})",
+          "NestedCollections": [
+            {
+              "Name": "OrderItems",
+              "SourceTableSchema": "dbo",
+              "SourceTableName": "OrderItems",
+              "Type": "OneToMany",
+              "JoinColumns": [
+                "OrderId"
+              ],
+              "ColumnsMapping": {
+                "UnitPrice": "UnitPrice",
+                "Units": "Units",
+                "ItemOrdered_CatalogItemId": "CatalogItemId",
+                "ItemOrdered_PictureUri": "PictureUri",
+                "ItemOrdered_ProductName": "ProductName"
+              },
+              "AttachmentNameMapping": {},
+              "LinkedCollections": [],
+              "NestedCollections": []
+            }
+          ],
+          "LinkedCollections": [],
+          "ColumnsMapping": {
+            "BuyerId": "BuyerId",
+            "OrderDate": "OrderDate",
+            "ShipToAddress_City": "City",
+            "ShipToAddress_Country": "Country",
+            "ShipToAddress_State": "State",
+            "ShipToAddress_Street": "Street",
+            "ShipToAddress_ZipCode": "ZipCode"
+          },
+          "AttachmentNameMapping": {}
+        },
+        {
+          "SourceTableName": "Catalog",
+          "SourceTableSchema": "dbo",
+          "Name": "Catalog",
+          "Patch": "this.CatalogBrandRvnId = this.CatalogBrandId;\r\nthis.CatalogBrandId = parseInt(this.CatalogBrandId.split('/')[1]);\r\nthis.CatalogTypeRvnId =  this.CatalogTypeId;\r\nthis.CatalogTypeId = parseInt(this.CatalogTypeId.split('/')[1]);",
+          "NestedCollections": [],
+          "LinkedCollections": [
+            {
+              "Name": "CatalogBrandId",
+              "SourceTableName": "CatalogBrands",
+              "SourceTableSchema": "dbo",
+              "JoinColumns": [
+                "CatalogBrandId"
+              ],
+              "Type": "ManyToOne"
+            },
+            {
+              "Name": "CatalogTypeId",
+              "SourceTableName": "CatalogTypes",
+              "SourceTableSchema": "dbo",
+              "JoinColumns": [
+                "CatalogTypeId"
+              ],
+              "Type": "ManyToOne"
+            }
+          ],
+          "ColumnsMapping": {
+            "Description": "Description",
+            "Name": "Name",
+            "PictureUri": "PictureUri",
+            "Price": "Price"
+          },
+          "AttachmentNameMapping": {}
+        }
+      ]
+    }
+  },
+  "Advanced": {
+    "UsePascalCase": true,
+    "DetectManyToMany": true,
+    "TrimSuffix": true,
+    "SuffixToTrim": "_id"
+  },
+  "BinaryToAttachment": true
+}
